@@ -11,6 +11,7 @@ lib/
 lib64
 pyvenv.cfg
 pip-selfcheck.json
+db.sqlite3
 
 
 # ignore files and directories created by your editor or IDE
