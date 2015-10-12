@@ -1,0 +1,24 @@
+# ignore any files ending with pyo or pyc
+*.py[co]
+
+# ignore python3 cache directory
+__pycache__/
+
+# ignore directories and files created by pyvenv and pip
+bin/
+include/
+lib/
+lib64
+pyvenv.cfg
+pip-selfcheck.json
+
+
+# ignore files and directories created by your editor or IDE
+*.komodoproject
+
+# ignore directory created by jupyter/ipython-notebook
+*.ipynb_checkpoints/
+
+# don't ignore these type of files, we will use this to add empty folders to
+# git
+!.gitkeep
