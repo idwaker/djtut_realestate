@@ -19,4 +19,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^add/', 'property.views.add'),
+    url(r'^list/', 'property.views.list'),
+    url(r'^update/', 'property.views.update'),
 ]

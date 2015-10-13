@@ -21,6 +21,47 @@ def add(request):
         kitchens=1
     )
     house.save()
-    
+
     # this is view so it must return a response
+    return HttpResponse('done')
+
+
+def list(request):
+    """
+    This view list all houses
+    """
+
+    # get all house objects/rows stored in database
+    houses = House.objects.all()
+
+    output = '<h3>All Houses</h3><ul>'
+    for house in houses:
+        output += '<li>' + house.title + ' :: ' + str(house.created_at) + '</li>'
+
+    output += '</ul>'
+
+    # get only those added by above add view
+    selected = House.objects.filter(title='This is added and also duplicated')
+    output += '<h3>Houses added by add view</h3><ul>'
+
+    for house in selected:
+        output += '<li>' + house.title + ' :: ' + str(house.created_at) + '</li>'
+
+    output += '</ul>'
+
+    # we will show list of house names
+    return HttpResponse(output)
+
+
+def update(request):
+    """
+    update selected object
+    """
+
+    # get only those added by above add view
+    house = House.objects.filter(title='This is added and also duplicated').first()
+    house.title = house.title + ' and updated'
+    house.save()
+
+    # we will show list of house names
     return HttpResponse('done')
