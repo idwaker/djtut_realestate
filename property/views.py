@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import House
+from .forms import HouseForm
 
 
 def add(request):
@@ -9,22 +10,24 @@ def add(request):
 
     Every view must have request argument, which is passed by django
     """
-    house = House(
-        title='This is added and also duplicated',
-        description="""This is duplicated because
-        we don't have any field that is unique and everytime when someone
-        calls this method a new object with the same attributes will be created
-        and saved to database.""",
-        price=128.78,
-        address='This is address',
-        bedrooms=3,
-        bathrooms=2,
-        kitchens=1
-    )
-    house.save()
+    form = HouseForm()
+    done = ''
+    if request.POST:
+        form = HouseForm(request.POST)
+        if form.is_valid():
+            house = House(
+                title=form.cleaned_data['title'],
+                description=form.cleaned_data['description'],
+                price=form.cleaned_data['price'],
+                address=form.cleaned_data['address'],
+                bedrooms=form.cleaned_data['bedrooms'],
+                bathrooms=form.cleaned_data['bathrooms'],
+                kitchens=form.cleaned_data['kitchens']
+            )
+            house.save()
+            done = 'Your form is submitted and saved.'
 
-    # this is view so it must return a response
-    return HttpResponse('done')
+    return render(request, 'form.html', {'done': done, 'form': form})
 
 
 def list(request):
