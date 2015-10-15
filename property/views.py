@@ -1,11 +1,12 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from .models import House
 
 
 def add(request):
     """
     This view shows how we can create a new instance and save to database
-    
+
     Every view must have request argument, which is passed by django
     """
     house = House(
@@ -34,23 +35,12 @@ def list(request):
     # get all house objects/rows stored in database
     houses = House.objects.all()
 
-    output = '<h3>All Houses</h3><ul>'
-    for house in houses:
-        output += '<li>' + house.title + ' :: ' + str(house.created_at) + '</li>'
-
-    output += '</ul>'
-
     # get only those added by above add view
     selected = House.objects.filter(title='This is added and also duplicated')
-    output += '<h3>Houses added by add view</h3><ul>'
-
-    for house in selected:
-        output += '<li>' + house.title + ' :: ' + str(house.created_at) + '</li>'
-
-    output += '</ul>'
-
-    # we will show list of house names
-    return HttpResponse(output)
+    return render(request, 'list.html', {
+        'all_houses': houses,
+        'selected_houses': selected
+    })
 
 
 def update(request):

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>List of Houses</title>
+    </head>
+    <body>
+        <div>
+            <h3>All Houses</h3>
+            <ul>
+            {% for house in all_houses %}
+                <li>{{ house.title }}</li>
+            {% endfor %}
+            </ul>
+
+            <h3>Selected Houses</h3>
+            <ul>
+            {% for house in selected_houses %}
+                <li>{{ house.title }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </body>
+</html>
